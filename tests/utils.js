@@ -8,14 +8,14 @@ const DB = () => {
 
   return {
     sync: () => ({
-      get: (key) => data[key],
+      get: key => data[key],
       put: (key, val, cb) => {
         setTimeout(() => {
           data[key] = val
           cb()
         }, DELAY)
       },
-      has: (key) => ({}.hasOwnProperty.call(data, key)),
+      has: key => ({}.hasOwnProperty.call(data, key)),
       keys: () => Object.keys(data),
       del: noop,
       clear: noop,
@@ -24,9 +24,15 @@ const DB = () => {
     }),
 
     // Custom methods used in tests
-    _reset: () => { data = {} },
-    _setDelay: (ms) => { DELAY = ms || 1 },
-    _put: (key, value) => { data[key] = value }
+    _reset: () => {
+      data = {}
+    },
+    _setDelay: ms => {
+      DELAY = ms || 1
+    },
+    _put: (key, value) => {
+      data[key] = value
+    },
   }
 }
 

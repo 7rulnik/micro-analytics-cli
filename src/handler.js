@@ -4,7 +4,7 @@ const { send, createError, sendError } = require('micro')
 const db = require('./db')
 const { pushView } = require('./utils')
 
-module.exports = async function (req, res) {
+module.exports = async function(req, res) {
   const { pathname, query } = url.parse(req.url, /* parseQueryString */ true)
   res.setHeader('Access-Control-Allow-Origin', '*')
   // Send all views down if "?all" is true
@@ -16,7 +16,7 @@ module.exports = async function (req, res) {
           before: parseInt(query.before, 10),
           after: parseInt(query.after, 10),
         }),
-        time: Date.now()
+        time: Date.now(),
       }
       send(res, 200, data)
       return
@@ -34,13 +34,17 @@ module.exports = async function (req, res) {
   }
   const shouldIncrement = String(query.inc) !== 'false'
   try {
-    const currentViews = await db.has(pathname) ? (await db.get(pathname)).views.length : 0
+    const currentViews = (await db.has(pathname))
+      ? (await db.get(pathname)).views.length
+      : 0
     // Add a view and send the total views back to the client
     if (shouldIncrement) {
       await pushView(pathname, { time: Date.now() })
     }
     if (req.method === 'GET') {
-      send(res, 200, { views: shouldIncrement ? currentViews + 1 : currentViews })
+      send(res, 200, {
+        views: shouldIncrement ? currentViews + 1 : currentViews,
+      })
     } else {
       send(res, 200)
     }

@@ -20,8 +20,8 @@
     "prepublish": "npm run build",
     "dev": "NODE_ENV=development nodemon --config package.json --exec async-node src/index.js",
     "test": "jest",
-    "lint": "eslint src test adapter-tests",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/*.js' 'test/*.js' 'adapter-tests/*.js'"
+    "lint": "eslint src tests adapter-tests",
+    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/*.js' 'tests/*.js' 'adapter-tests/*.js'"
   },
   "eslintConfig": {
     "parser": "babel-eslint",

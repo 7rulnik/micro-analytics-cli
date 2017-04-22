@@ -5,7 +5,7 @@ const service = require('../src/handler')
 const db = require('../src/db')
 let url
 
-db.initDbAdapter('flat-file-db');
+db.initDbAdapter('flat-file-db')
 
 beforeEach(async () => {
   url = await listen(service)
@@ -27,7 +27,9 @@ it('should throw an error if a PUT request comes in', async () => {
   const fn = jest.fn()
   try {
     await request.put(`${url}/test`)
-    expect(err.message.indexOf('make a GET or a POST request')).toBeGreaterThan(-1)
+    expect(err.message.indexOf('make a GET or a POST request')).toBeGreaterThan(
+      -1
+    )
     fn()
   } catch (err) {
     expect(err.statusCode).toBe(400)

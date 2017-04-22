@@ -6,7 +6,7 @@ const db = require('../src/db')
 const service = require('../src/handler')
 let url
 
-db.initDbAdapter('flat-file-db');
+db.initDbAdapter('flat-file-db')
 
 beforeEach(async () => {
   mockDb._reset()
@@ -98,21 +98,25 @@ describe('all', () => {
       const after = new Date('2017-01-01T09:11:00.000Z').getTime()
       const before = new Date('2017-01-01T09:41:00.000Z').getTime()
 
-      mockDb._put('/rover', { views: [
-        { time: new Date('2017-01-01T09:00:00.000Z').getTime() },
-        { time: new Date('2017-01-01T09:10:00.000Z').getTime() },
-        { time: new Date('2017-01-01T09:20:00.000Z').getTime() },
-        { time: new Date('2017-01-01T09:30:00.000Z').getTime() },
-        { time: new Date('2017-01-01T09:40:00.000Z').getTime() },
-        { time: new Date('2017-01-01T09:50:00.000Z').getTime() },
-      ]})
+      mockDb._put('/rover', {
+        views: [
+          { time: new Date('2017-01-01T09:00:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:10:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:20:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:30:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:40:00.000Z').getTime() },
+          { time: new Date('2017-01-01T09:50:00.000Z').getTime() },
+        ],
+      })
 
       const mapToIsoString = view => new Date(view.time).toISOString()
-      const body = JSON.parse(await request(`${url}/rover?all=true&before=${before}&after=${after}`))
+      const body = JSON.parse(
+        await request(`${url}/rover?all=true&before=${before}&after=${after}`)
+      )
       expect(body.data['/rover'].views.map(mapToIsoString)).toEqual([
         '2017-01-01T09:20:00.000Z',
         '2017-01-01T09:30:00.000Z',
-        '2017-01-01T09:40:00.000Z'
+        '2017-01-01T09:40:00.000Z',
       ])
     })
   })
