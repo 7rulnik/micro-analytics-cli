@@ -9,6 +9,12 @@ A tiny analytics server with ~100 lines of code, easy to run and hack around on.
 
 (there is currently no frontend to display pretty graphs, feel free to build one yourself!)
 
+## Demo
+
+We have a demo instance on [demo.micro-analytics.io](https://demo.micro-analytics.io/visited)
+automatically deploys the master branch from this repository. Feel free to use it to test
+your clients.
+
 ## Setup
 
 Running your own `micro-analytics` is just two tiny commands away:
